@@ -35,6 +35,10 @@ async function start() {
     socket.on('everybody', (name) => {
       socket.emit('everybody', name)
       socket.broadcast.emit('everybody', name)
+    }),
+    socket.on('disconnect', (s) => {
+      const id = socket.id
+      consola.info(`disconnected id : ${id}`)
     })
   })
 
