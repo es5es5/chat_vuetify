@@ -33,7 +33,7 @@ async function start() {
   const chat = io.of('/chat').on('connection', (socket) => {
     consola.success('success')
     socket.on('everybody', (name) => {
-      consola.info('everybody')
+      socket.emit('everybody', name)
     })
   })
 
