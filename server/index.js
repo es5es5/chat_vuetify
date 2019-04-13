@@ -2,8 +2,8 @@ const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
+const http = require('http')
 const socket = require('socket.io')
-const io = socket(server)
 
 const app = express()
 
@@ -27,6 +27,15 @@ async function start() {
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
+  const server = http.createServer(app)
+  let io = socket(server)
+
+  const chat = io.of('/chat').on('connection', (socket) => {
+    consola.success('success')
+    socket.on('everybody', (name) => {
+      consola.info('everybody')
+    })
+  })
 
   // Listen the server
   app.listen(port, host)
