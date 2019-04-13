@@ -1,30 +1,40 @@
 <template>
-  <div class="chat">
-    <h2>채팅방</h2>
-    <input v-model="sendMessage" type="text">
+  <v-layout>
+    <h2>채팅 웹앱</h2>
+    <v-flex xs12 sm6 md3>
+      <v-text-field
+        v-model="username"
+        label="Solo"
+        solo
+      />
+    </v-flex>
     <v-btn color="success" @click="enter">
-      ddd
+      입장
     </v-btn>
-  </div>
+    <h1>{{ retMsg }}</h1>
+  </v-layout>
 </template>
 
 <script>
 import socket from '~/plugins/socket.io.js'
 
 export default {
-  name: 'Chat',
-  data() {
-    return {
-      username: '',
-      sendMessage: ''
-    }
+  data: () => ({
+    username: '',
+    retMsg: ''
+  }),
+  beforeMount() {
+    socket.on('everybody', (msg) => {
+      this.retMsg = msg
+    })
   },
   methods: {
     enter() {
-      socket.emit('everyBody', this.username)
+      socket.emit('everybody', this.username)
     }
   }
 }
+
 </script>
 
 <style>

@@ -41,7 +41,7 @@ module.exports = {
   */
   plugins: [
     '@/plugins/vuetify',
-    '@/plugins/socket.io'
+    '@/plugins/socket.io.js'
   ],
 
   /*

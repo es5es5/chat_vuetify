@@ -34,11 +34,13 @@ async function start() {
     consola.success('success')
     socket.on('everybody', (name) => {
       socket.emit('everybody', name)
+      socket.broadcast.emit('everybody', name)
     })
   })
 
   // Listen the server
-  app.listen(port, host)
+  // app.listen(port, host)
+  server.listen(port, host)
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true
